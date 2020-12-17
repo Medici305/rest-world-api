@@ -65,7 +65,7 @@ function filterWorld(e) {
   });
 }
 
-async function fetchCountry() {
+async function fetchApi() {
   const dataFetch = await fetch(url, {
     method: "GET",
     headers: {
@@ -75,88 +75,100 @@ async function fetchCountry() {
     },
   });
   const data = await dataFetch.json();
+  return data;
+}
 
-  let Germany = data[84];
-  let UnitedStates = data[239];
-  let Brazil = data[31];
-  let Iceland = data[103];
-  let Afghanistan = data[0];
-  let AlandIslands = data[1];
-  let Albania = data[2];
-  let Algeria = data[3];
+function createDiv(item) {
+  //console.log(country);
+  const countryDiv = document.createElement("div");
+  countryDiv.classList.add("country-div");
+  countryDiv.classList.add(`${item.region}-div`);
+  // Top Div
+  const imageDiv = document.createElement("div");
+  imageDiv.classList.add("image-div");
+  // Image
+  const image = document.createElement("img");
+  image.classList.add("image");
+  image.alt = item.name;
+  image.src = `http://purecatamphetamine.github.io/country-flag-icons/3x2/${item.alpha2Code}.svg`;
+  // Bottom Div
+  const textDiv = document.createElement("div");
+  textDiv.classList.add("text-div");
+  // Name
+  const countryName = document.createElement("h3");
+  countryName.classList.add("country-name");
+  countryName.innerText = item.name;
+  // Population
+  const populationText = document.createElement("p");
+  populationText.classList.add("population-text");
+  populationText.innerText = "Population: ";
+  const populationNr = document.createElement("span");
+  populationNr.classList.add("population-nr");
+  populationNr.innerText = item.population;
+  populationText.appendChild(populationNr);
+  // Region
+  const regionText = document.createElement("p");
+  regionText.classList.add("region-text");
+  regionText.innerText = "Region: ";
+  const regionNr = document.createElement("span");
+  regionNr.classList.add("region-nr");
+  regionNr.innerText = item.region;
+  regionText.appendChild(regionNr);
+  // Capital
+  const captialText = document.createElement("p");
+  captialText.classList.add("capital-text");
+  captialText.innerText = "Capital: ";
+  const capitalNr = document.createElement("span");
+  capitalNr.classList.add("capital-nr");
+  capitalNr.innerText = item.capital;
+  captialText.appendChild(capitalNr);
+  // Append All
+  imageDiv.appendChild(image);
+  textDiv.appendChild(countryName);
+  textDiv.appendChild(populationText);
+  textDiv.appendChild(regionText);
+  textDiv.appendChild(captialText);
+  countryDiv.appendChild(imageDiv);
+  countryDiv.appendChild(textDiv);
+  gallery.appendChild(countryDiv);
+}
+
+async function fetchCountry() {
+  const data = await fetchApi();
   let countryName = [
-    Germany,
-    UnitedStates,
-    Brazil,
-    Iceland,
-    Afghanistan,
-    AlandIslands,
-    Albania,
-    Algeria,
+    data[84],
+    data[239],
+    data[31],
+    data[103],
+    data[0],
+    data[1],
+    data[2],
+    data[3],
   ];
   // Adds divs
   countryName.forEach((country) => {
-    //console.log(country);
-    const countryDiv = document.createElement("div");
-    countryDiv.classList.add("country-div");
-    countryDiv.classList.add(`${country.region}-div`);
-    // Top Div
-    const imageDiv = document.createElement("div");
-    imageDiv.classList.add("image-div");
-    // Image
-    const image = document.createElement("img");
-    image.classList.add("image");
-    image.alt = country.name;
-    image.src = `http://purecatamphetamine.github.io/country-flag-icons/3x2/${country.alpha2Code}.svg`;
-    // Bottom Div
-    const textDiv = document.createElement("div");
-    textDiv.classList.add("text-div");
-    // Name
-    const countryName = document.createElement("h3");
-    countryName.classList.add("country-name");
-    countryName.innerText = country.name;
-    // Population
-    const populationText = document.createElement("p");
-    populationText.classList.add("population-text");
-    populationText.innerText = "Population: ";
-    const populationNr = document.createElement("span");
-    populationNr.classList.add("population-nr");
-    populationNr.innerText = country.population;
-    populationText.appendChild(populationNr);
-    // Region
-    const regionText = document.createElement("p");
-    regionText.classList.add("region-text");
-    regionText.innerText = "Region: ";
-    const regionNr = document.createElement("span");
-    regionNr.classList.add("region-nr");
-    regionNr.innerText = country.region;
-    regionText.appendChild(regionNr);
-    // Capital
-    const captialText = document.createElement("p");
-    captialText.classList.add("capital-text");
-    captialText.innerText = "Capital: ";
-    const capitalNr = document.createElement("span");
-    capitalNr.classList.add("capital-nr");
-    capitalNr.innerText = country.capital;
-    captialText.appendChild(capitalNr);
-    // Append All
-    imageDiv.appendChild(image);
-    textDiv.appendChild(countryName);
-    textDiv.appendChild(populationText);
-    textDiv.appendChild(regionText);
-    textDiv.appendChild(captialText);
-    countryDiv.appendChild(imageDiv);
-    countryDiv.appendChild(textDiv);
-    gallery.appendChild(countryDiv);
+    createDiv(country);
   });
 }
 
 fetchCountry();
 
+async function fetchSelectedCountry(country) {
+  const data = await fetchApi();
+  let searchedCountry;
+  for (const countryObject of data) {
+    if (countryObject.name === `${country}`) {
+      searchedCountry = countryObject;
+    }
+  }
+  // Add Div
+  createDiv(searchedCountry);
+}
 // EventListeners
 searchFilter.addEventListener("change", filterWorld);
 searchInput.addEventListener("input", updateInput);
 searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
   clear();
+  fetchSelectedCountry(searchValue);
 });
