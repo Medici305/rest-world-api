@@ -103,7 +103,6 @@ main {
     margin: 0rem 5rem 2rem 5rem;
     .country-div {
       @include flex(flex, column, center, center);
-      //box-shadow: 0 0 10px;
       .image-div,
       .text-div {
         flex: 1;

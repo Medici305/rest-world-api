@@ -1,11 +1,70 @@
 // Global Variables
 const apiKey = "ac98b8a2e1msh48e3a397a66c1f9p1e06e7jsn6d33f38350c5";
 const url = "https://ajayakv-rest-countries-v1.p.rapidapi.com/rest/v1/all";
-const searchInput = document.querySelector(".select-input");
-const searchFilter = document.querySelector(".select-filter");
+const searchInput = document.querySelector(".search-input");
+const searchFilter = document.querySelector(".search-filter");
+const searchForm = document.querySelector(".search-bar");
 const gallery = document.querySelector(".gallery-map");
+let searchValue;
 
 // Functions
+function updateInput(e) {
+  searchValue = e.target.value;
+}
+
+function clear() {
+  gallery.innerHTML = "";
+  searchInput.value = "";
+}
+
+function filterWorld(e) {
+  const list = gallery.childNodes;
+  list.forEach((country) => {
+    console.log(country);
+    const continent = e.target.value;
+    switch (continent) {
+      case "all":
+        country.style.display = "flex";
+        break;
+      case "africa":
+        if (country.classList.contains("Africa-div")) {
+          country.style.display = "flex";
+        } else {
+          country.style.display = "none";
+        }
+        break;
+      case "america":
+        if (country.classList.contains("Americas-div")) {
+          country.style.display = "flex";
+        } else {
+          country.style.display = "none";
+        }
+        break;
+      case "asia":
+        if (country.classList.contains("Asia-div")) {
+          country.style.display = "flex";
+        } else {
+          country.style.display = "none";
+        }
+        break;
+      case "europe":
+        if (country.classList.contains("Europe-div")) {
+          country.style.display = "flex";
+        } else {
+          country.style.display = "none";
+        }
+        break;
+      case "oceania":
+        if (country.classList.contains("Oceania-div")) {
+          country.style.display = "flex";
+        } else {
+          country.style.display = "none";
+        }
+        break;
+    }
+  });
+}
+
 async function fetchCountry() {
   const dataFetch = await fetch(url, {
     method: "GET",
@@ -40,6 +99,7 @@ async function fetchCountry() {
     //console.log(country);
     const countryDiv = document.createElement("div");
     countryDiv.classList.add("country-div");
+    countryDiv.classList.add(`${country.region}-div`);
     // Top Div
     const imageDiv = document.createElement("div");
     imageDiv.classList.add("image-div");
@@ -47,8 +107,7 @@ async function fetchCountry() {
     const image = document.createElement("img");
     image.classList.add("image");
     image.alt = country.name;
-    image.src =
-      `http://purecatamphetamine.github.io/country-flag-icons/3x2/${country.alpha2Code}.svg`;
+    image.src = `http://purecatamphetamine.github.io/country-flag-icons/3x2/${country.alpha2Code}.svg`;
     // Bottom Div
     const textDiv = document.createElement("div");
     textDiv.classList.add("text-div");
@@ -95,3 +154,9 @@ async function fetchCountry() {
 fetchCountry();
 
 // EventListeners
+searchFilter.addEventListener("change", filterWorld);
+searchInput.addEventListener("input", updateInput);
+searchForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  clear();
+});

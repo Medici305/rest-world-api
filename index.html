@@ -26,13 +26,14 @@
     <!-- Main Section -->
     <main>
         <div class="search">
-            <div class="search-bar">
-                <button><i class="fas fa-search"></i></button>
+            <form class="search-bar">
+                <button type="submit"><i class="fas fa-search"></i></button>
                 <input type="text" name="search" placeholder="Search for a country..." class="search-input">
-            </div>
+            </form>
 
             <select name="countries" class="search-filter">
                 <option value="" selected disabled hidden>Filter by Region</option>
+                <option value="all">All</option>
                 <option value="africa">Africa</option>
                 <option value="america">America</option>
                 <option value="asia">Asia</option>
