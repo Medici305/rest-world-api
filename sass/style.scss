@@ -1,0 +1,146 @@
+@import "components/mixin/mixins";
+@import "components/variable/variables";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: 0;
+}
+
+body {
+  font : {
+    size: 18px;
+    family: "Mukta", sans Serif;
+    weight: 300;
+  }
+  background: $veryDarkBlueDark;
+}
+
+/* Header Section*/
+header {
+  min-height: 10vh;
+  @include flex(flex, row, space-between, center);
+  background: $darkBlue;
+  color: #fff;
+
+  h2 {
+    margin-left: 5rem;
+    font-weight: 500;
+  }
+  .dark-mode {
+    margin-right: 5rem;
+    @include flex(flex, row, center, center);
+    .fa-moon {
+      padding: 0rem 1rem;
+    }
+    p {
+    }
+  }
+}
+
+/* Main Section */
+main {
+  min-height: 90vh;
+  background: $veryDarkBlueDark;
+  .search {
+    @include flex(flex, row, space-between, center);
+    padding: 2rem 0;
+    .search-bar {
+      margin-left: 5rem;
+      @include flex(flex, row, center, center);
+      button {
+        padding: 0.97rem;
+        border: none;
+        background: $darkBlue;
+        .fa-search {
+          font-size: 1.2rem;
+          pointer-events: none;
+          color: #fff;
+        }
+      }
+      input {
+        font-size: 1rem;
+        padding: 1.05rem;
+        border: none;
+        outline: none;
+        background: $darkBlue;
+        color: #fff;
+      }
+    }
+    select {
+      margin-right: 5rem;
+      font-size: 1rem;
+      padding: 1.05rem;
+      outline: none;
+      border: none;
+      background: $darkBlue;
+      color: #fff;
+      /* Replace default styling (arrow) */
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      @include backgroundImage(
+        "../image/down-arrow.svg",
+        right 1rem top 50%,
+        1.2rem
+      );
+      padding-right: 3rem;
+      cursor: pointer;
+      &:hover,
+      &:focus {
+        outline: none;
+        border: 1px solid grey;
+      }
+    }
+  }
+
+  .gallery-map {
+    min-height: 73vh;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    row-gap: 1rem;
+    column-gap: 3rem;
+    margin: 0rem 5rem 2rem 5rem;
+    .country-div {
+      @include flex(flex, column, center, center);
+      //box-shadow: 0 0 10px;
+      .image-div,
+      .text-div {
+        flex: 1;
+        width: 100%;
+      }
+      .image-div {
+        img {
+          height: 100%;
+          width: 100%;
+        }
+      }
+      .text-div {
+        @include flex(flex, column, center, flex-start);
+        background: $darkBlue;
+        color: #fff;
+        .country-name {
+          font : {
+            size: 1.1rem;
+            weight: 600;
+          }
+          padding: 1rem;
+        }
+        .population-text,
+        .region-text,
+        .capital-text {
+          font : {
+            size: 1rem;
+            weight: 600;
+          }
+          padding-left: 1rem;
+          .population-nr,
+          .region-nr,
+          .capital-nr {
+            font-weight: 300;
+          }
+        }
+      }
+    }
+  }
+}
