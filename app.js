@@ -5,6 +5,7 @@ const searchInput = document.querySelector(".search-input");
 const searchFilter = document.querySelector(".search-filter");
 const searchForm = document.querySelector(".search-bar");
 const gallery = document.querySelector(".gallery-map");
+const darkModeIcon = document.querySelector(".dark-mode");
 let searchValue;
 
 // Functions
@@ -20,7 +21,6 @@ function clear() {
 function filterWorld(e) {
   const list = gallery.childNodes;
   list.forEach((country) => {
-    console.log(country);
     const continent = e.target.value;
     switch (continent) {
       case "all":
@@ -131,6 +131,9 @@ function createDiv(item) {
   countryDiv.appendChild(imageDiv);
   countryDiv.appendChild(textDiv);
   gallery.appendChild(countryDiv);
+  darkModeIcon.addEventListener("click", () => {
+    textDiv.classList.toggle("active");
+  });
 }
 
 async function fetchCountry() {
@@ -161,9 +164,35 @@ async function fetchSelectedCountry(country) {
       searchedCountry = countryObject;
     }
   }
-  // Add Div
   createDiv(searchedCountry);
 }
+
+function changeMode(e) {
+  const header = document.querySelector("header");
+  const alpha = document.querySelector("a");
+  const moonIcon = document.querySelector("i");
+  const main = document.querySelector("main");
+  const searchButton = document.querySelector("button");
+  const searchIcon = document.querySelector(".fa-search");
+  const body = document.querySelector("body");
+
+  if (moonIcon.classList.contains("fa")) {
+    moonIcon.classList.remove("fa");
+    moonIcon.classList.add("far");
+  } else {
+    moonIcon.classList.remove("far");
+    moonIcon.classList.add("fa");
+  }
+  header.classList.toggle("active");
+  alpha.classList.toggle("active");
+  main.classList.toggle("active");
+  searchButton.classList.toggle("active");
+  searchIcon.classList.toggle("active");
+  searchInput.classList.toggle("active");
+  searchFilter.classList.toggle("active");
+  body.classList.toggle("active");
+}
+
 // EventListeners
 searchFilter.addEventListener("change", filterWorld);
 searchInput.addEventListener("input", updateInput);
@@ -172,3 +201,11 @@ searchForm.addEventListener("submit", (e) => {
   clear();
   fetchSelectedCountry(searchValue);
 });
+darkModeIcon.addEventListener("click", changeMode);
+
+// const invalidText = document.createElement("h1");
+// invalidText.classList.add("invalid-text");
+// invalidText.innerText = "Sorry your input doesn't match....";
+// gallery.appendChild(invalidText);
+// return;
+// Add Div
