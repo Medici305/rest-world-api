@@ -6,6 +6,7 @@ const searchFilter = document.querySelector(".search-filter");
 const searchForm = document.querySelector(".search-bar");
 const gallery = document.querySelector(".gallery-map");
 const darkModeIcon = document.querySelector(".dark-mode");
+const linkNextPage = document.querySelector(".next-page");
 let searchValue;
 
 // Functions
@@ -14,12 +15,12 @@ function updateInput(e) {
 }
 
 function clear() {
-  gallery.innerHTML = "";
+  linkNextPage.innerHTML = "";
   searchInput.value = "";
 }
 
 function filterWorld(e) {
-  const list = gallery.childNodes;
+  const list = linkNextPage.childNodes;
   list.forEach((country) => {
     const continent = e.target.value;
     switch (continent) {
@@ -130,7 +131,8 @@ function createDiv(item) {
   textDiv.appendChild(captialText);
   countryDiv.appendChild(imageDiv);
   countryDiv.appendChild(textDiv);
-  gallery.appendChild(countryDiv);
+  linkNextPage.appendChild(countryDiv);
+
   darkModeIcon.addEventListener("click", () => {
     textDiv.classList.toggle("active");
   });
