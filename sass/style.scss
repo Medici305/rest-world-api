@@ -360,4 +360,35 @@ main {
       margin: 0rem 2rem 2rem 2rem;
     }
   }
+
+  .info-container {
+    background: rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    .information {
+      background-color: #fff;
+      @include flex(flex, column, center, center);
+      border-radius: 1rem;
+      min-width: 60%;
+      min-height: 70vh;
+      pointer-events: none;
+      &.active {
+        transform: translateY(0rem);
+      }
+      .left-div,
+      .right-div {
+        height: 2rem;
+        @include flex(flex, column, center, center);
+
+      }
+      .left-div {
+        flex: 0.6;
+        margin-top: 1.5rem;
+      }
+      .right-div {
+        flex: 0.3;
+        margin-left: 2rem;
+        text-align: center;
+      }
+    }
+  }
 }

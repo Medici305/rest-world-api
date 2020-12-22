@@ -336,6 +336,42 @@ main .gallery-map .invalid-text {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     margin: 0rem 2rem 2rem 2rem;
   }
+
+  .info-container {
+    background: rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+  }
+  .info-container .information {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1rem;
+    min-width: 60%;
+    min-height: 70vh;
+    pointer-events: none;
+  }
+  .info-container .information.active {
+    transform: translateY(0rem);
+  }
+  .info-container .information .left-div,
+.info-container .information .right-div {
+    height: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .info-container .information .left-div {
+    flex: 0.6;
+    margin-top: 1.5rem;
+  }
+  .info-container .information .right-div {
+    flex: 0.3;
+    margin-left: 2rem;
+    text-align: center;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
