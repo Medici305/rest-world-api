@@ -317,13 +317,20 @@ function changeMode(e) {
   body.classList.toggle("active");
 }
 
+function capitalizeFirstLetter(str) {
+  return str.replace(/\w\S*/g, function (txt) {
+    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+  });
+}
+
 // EventListeners
 searchFilter.addEventListener("change", filterWorld);
 searchInput.addEventListener("input", updateInput);
 searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
   clear();
-  fetchSelectedCountry(searchValue);
+  const newValue = capitalizeFirstLetter(searchValue);
+  fetchSelectedCountry(newValue);
 });
 darkModeIcon.addEventListener("click", changeMode);
 informationContainer.addEventListener("click", () => {

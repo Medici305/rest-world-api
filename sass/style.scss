@@ -132,6 +132,7 @@ main {
     }
   }
 
+  /* Data api return section */
   .gallery-map {
     min-height: 73vh;
     display: grid;
@@ -259,7 +260,8 @@ main {
           font-size: 2rem;
         }
       }
-      .main-div, .footer-div {
+      .main-div,
+      .footer-div {
         flex: 0.4;
         @include flex(flex, column);
         p {
@@ -315,3 +317,47 @@ main {
 //   margin-bottom: 3rem;
 //   height: 65vh;
 // }
+
+//////////////
+@media only screen and (max-width: 376px) {
+  header {
+    min-height: 10vh;
+    a {
+      margin-left: 2rem;
+      font : {
+        size: 1rem;
+      }
+    }
+    .dark-mode {
+      margin-right: 2rem;
+      p {
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+/* Main Section */
+main {
+  min-height: 90vh;
+  .search {
+    @include flex(flex, column, space-between, center);
+    //border: 2px solid black;
+    .search-bar {
+      margin-left: 1rem;
+      button {
+        margin-bottom: 2rem;
+        padding: 0.98rem;
+      }
+      input {
+        margin-bottom: 2rem;
+      }
+    }
+  }
+
+  /* Data api return section */
+  .gallery-map {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    margin: 0rem 2rem 2rem 2rem;
+  }
+}
