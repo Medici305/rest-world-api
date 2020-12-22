@@ -335,29 +335,29 @@ main {
       }
     }
   }
-}
 
-/* Main Section */
-main {
-  min-height: 90vh;
-  .search {
-    @include flex(flex, column, space-between, center);
-    //border: 2px solid black;
-    .search-bar {
-      margin-left: 1rem;
-      button {
-        margin-bottom: 2rem;
-        padding: 0.98rem;
-      }
-      input {
-        margin-bottom: 2rem;
+  /* Main Section */
+  main {
+    min-height: 90vh;
+    .search {
+      @include flex(flex, column, space-between, center);
+      //border: 2px solid black;
+      .search-bar {
+        margin-left: 1rem;
+        button {
+          margin-bottom: 2rem;
+          padding: 0.98rem;
+        }
+        input {
+          margin-bottom: 2rem;
+        }
       }
     }
-  }
 
-  /* Data api return section */
-  .gallery-map {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    margin: 0rem 2rem 2rem 2rem;
+    /* Data api return section */
+    .gallery-map {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      margin: 0rem 2rem 2rem 2rem;
+    }
   }
 }

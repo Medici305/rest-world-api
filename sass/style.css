@@ -310,31 +310,32 @@ main .gallery-map .invalid-text {
   header .dark-mode p {
     font-size: 1rem;
   }
-}
-/* Main Section */
-main {
-  min-height: 90vh;
-  /* Data api return section */
-}
-main .search {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-}
-main .search .search-bar {
-  margin-left: 1rem;
-}
-main .search .search-bar button {
-  margin-bottom: 2rem;
-  padding: 0.98rem;
-}
-main .search .search-bar input {
-  margin-bottom: 2rem;
-}
-main .gallery-map {
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  margin: 0rem 2rem 2rem 2rem;
+
+  /* Main Section */
+  main {
+    min-height: 90vh;
+    /* Data api return section */
+  }
+  main .search {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+  main .search .search-bar {
+    margin-left: 1rem;
+  }
+  main .search .search-bar button {
+    margin-bottom: 2rem;
+    padding: 0.98rem;
+  }
+  main .search .search-bar input {
+    margin-bottom: 2rem;
+  }
+  main .gallery-map {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    margin: 0rem 2rem 2rem 2rem;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
