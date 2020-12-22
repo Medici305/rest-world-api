@@ -6,8 +6,11 @@ const searchFilter = document.querySelector(".search-filter");
 const searchForm = document.querySelector(".search-bar");
 const gallery = document.querySelector(".gallery-map");
 const darkModeIcon = document.querySelector(".dark-mode");
-const linkNextPage = document.querySelector(".next-page");
+const informationContainer = document.querySelector(".info-container");
+const informationBox = document.querySelector(".information");
 let searchValue;
+let countryPicked;
+let saveObject;
 
 // Functions
 function updateInput(e) {
@@ -15,12 +18,12 @@ function updateInput(e) {
 }
 
 function clear() {
-  linkNextPage.innerHTML = "";
+  gallery.innerHTML = "";
   searchInput.value = "";
 }
 
 function filterWorld(e) {
-  const list = linkNextPage.childNodes;
+  const list = gallery.childNodes;
   list.forEach((country) => {
     const continent = e.target.value;
     switch (continent) {
@@ -80,7 +83,6 @@ async function fetchApi() {
 }
 
 function createDiv(item) {
-  //console.log(country);
   const countryDiv = document.createElement("div");
   countryDiv.classList.add("country-div");
   countryDiv.classList.add(`${item.region}-div`);
@@ -131,11 +133,131 @@ function createDiv(item) {
   textDiv.appendChild(captialText);
   countryDiv.appendChild(imageDiv);
   countryDiv.appendChild(textDiv);
-  linkNextPage.appendChild(countryDiv);
+  gallery.appendChild(countryDiv);
 
   darkModeIcon.addEventListener("click", () => {
     textDiv.classList.toggle("active");
   });
+  countryDiv.addEventListener("click", (e) => {
+    informationContainer.classList.add("active");
+    countryPicked = e.target.alt;
+    informationBox.innerHTML = "";
+    fetchFlagContainer(countryPicked);
+  });
+}
+
+async function fetchFlagContainer(map) {
+  const data = await fetchApi();
+  data.forEach((country) => {
+    if (country.name === map) {
+      saveObject = country;
+      displayCountry(saveObject);
+      return country;
+    } else {
+      return false;
+    }
+  });
+}
+
+function displayCountry(country) {
+  // Create two divs
+  const leftDiv = document.createElement("div");
+  leftDiv.classList.add("left-div");
+  const rightDiv = document.createElement("div");
+  rightDiv.classList.add("right-div");
+
+  // Add image to left Div
+  const flagImage = document.createElement("img");
+  flagImage.classList.add("left-flag");
+  flagImage.alt = country.name;
+  flagImage.src = `http://purecatamphetamine.github.io/country-flag-icons/3x2/${country.alpha2Code}.svg`;
+
+  // 3 right side divs
+  const headerDiv = document.createElement("div");
+  const mainDiv = document.createElement("div");
+  const footerDiv = document.createElement("div");
+  headerDiv.classList.add("header-div");
+  mainDiv.classList.add("main-div");
+  footerDiv.classList.add("footer-div");
+
+  // Add CountryName
+  const name = document.createElement("h3");
+  name.classList.add("name-country");
+  name.innerText = country.name;
+
+  // Native-name
+  const nativeName = document.createElement("p");
+  nativeName.innerText = "Native Name: ";
+  const nativeNameSpan = document.createElement("span");
+  nativeNameSpan.innerText = country.nativeName;
+  nativeName.appendChild(nativeNameSpan);
+  // Population
+  const populationText = document.createElement("p");
+  populationText.innerText = "Population: ";
+  const populationSpan = document.createElement("span");
+  populationSpan.innerText = country.population;
+  populationText.appendChild(populationSpan);
+  // Region
+  const regionText = document.createElement("p");
+  regionText.innerText = "Region: ";
+  const regionSpan = document.createElement("span");
+  regionSpan.innerText = country.region;
+  regionText.appendChild(regionSpan);
+  // Sub Region
+  const subRegion = document.createElement("p");
+  subRegion.innerText = "Sub Region: ";
+  const subRegionSpan = document.createElement("span");
+  subRegionSpan.innerText = country.subregion;
+  subRegion.appendChild(subRegionSpan);
+  // Capital
+  const capitalText = document.createElement("p");
+  capitalText.innerText = "Capital: ";
+  const capitalSpan = document.createElement("span");
+  capitalSpan.innerText = country.capital;
+  capitalText.appendChild(capitalSpan);
+  // Top Level Domain
+  const topLevelDomain = document.createElement("p");
+  topLevelDomain.innerText = "Top Level Domain: ";
+  const topLevelDomainSpan = document.createElement("span");
+  topLevelDomainSpan.innerText = country.topLevelDomain;
+  topLevelDomain.appendChild(topLevelDomainSpan);
+  // Currencies
+  const Currencies = document.createElement("p");
+  Currencies.innerText = "Currencies: ";
+  const CurrenciesSpan = document.createElement("span");
+  CurrenciesSpan.innerText = country.currencies;
+  Currencies.appendChild(CurrenciesSpan);
+  // Languages
+  const languages = document.createElement("p");
+  languages.innerText = "Languages: ";
+  const languagesSpan = document.createElement("span");
+  languagesSpan.innerText = country.languages;
+  languages.appendChild(languagesSpan);
+
+  // Border Countries
+  const borders = document.createElement("p");
+  borders.innerText = "Borders: ";
+  const bordersSpan = document.createElement("span");
+  bordersSpan.innerText = country.borders;
+  borders.appendChild(bordersSpan);
+
+  // Append all
+  headerDiv.appendChild(name);
+  mainDiv.appendChild(nativeName);
+  mainDiv.appendChild(populationText);
+  mainDiv.appendChild(regionText);
+  mainDiv.appendChild(subRegion);
+  mainDiv.appendChild(capitalText);
+  mainDiv.appendChild(topLevelDomain);
+  mainDiv.appendChild(Currencies);
+  mainDiv.appendChild(languages);
+  footerDiv.appendChild(borders);
+  leftDiv.appendChild(flagImage);
+  rightDiv.appendChild(headerDiv);
+  rightDiv.appendChild(mainDiv);
+  rightDiv.appendChild(footerDiv);
+  informationBox.appendChild(leftDiv);
+  informationBox.appendChild(rightDiv);
 }
 
 async function fetchCountry() {
@@ -204,6 +326,9 @@ searchForm.addEventListener("submit", (e) => {
   fetchSelectedCountry(searchValue);
 });
 darkModeIcon.addEventListener("click", changeMode);
+informationContainer.addEventListener("click", () => {
+  informationContainer.classList.remove("active");
+});
 
 // const invalidText = document.createElement("h1");
 // invalidText.classList.add("invalid-text");
